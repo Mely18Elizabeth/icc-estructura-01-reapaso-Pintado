@@ -2,31 +2,37 @@ package Controllers;
 
 import Models.Persona;
 
-/**
- * Controlador para manejar la lógica de operaciones sobre arrays de Persona.
- */
 public class PersonaController {
-    /**
-     * Método para ordenar un arreglo de Persona por edad utilizando el algoritmo de
-     * inserscion .
-     * 
-     * @param personas Array de Persona a ordenar.
-     */
+
     public void ordenarPorEdad(Persona[] personas) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        for (int i = 1; i < personas.length; i++) {
+            Persona aux = personas[i];
+            int j = i;
+            while (j > 0 && aux.getEdad() < personas[j - 1].getEdad()) {
+                personas[j] = personas[j - 1];
+                j--;
+            }
+            personas[j] = aux;
+        }
     }
 
-    /**
-     * Método para buscar la primera persona con una edad específica en un array de
-     * Persona.
-     * 
-     * @param personas Array de Persona donde buscar.
-     * @param edad     Edad a buscar.
-     * @return La primera Persona con la edad especificada, o null si no se
-     *         encuentra.
-     */
     public Persona buscarPorEdad(Persona[] personas, int edad) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        int bajo = 0;
+        int alto = personas.length - 1;
 
+        while (bajo <= alto) {
+            int central = bajo + (alto - bajo) / 2;
+            int edadCentral = personas[central].getEdad();
+
+            if (edadCentral == edad) {
+                return personas[central];
+            } else if (edadCentral < edad) {
+                bajo = central + 1;
+            } else {
+                alto = central - 1;
+            }
+        }
+
+        return null;
     }
 }
